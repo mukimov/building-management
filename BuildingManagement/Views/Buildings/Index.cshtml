@@ -1,21 +1,33 @@
-﻿@{
-	ViewBag.Title = "Home Page";
+﻿@using BuildingManagement.Models
+@{
+	ViewBag.Title = "Buildings Index";
 }
+@model List<Building>
 <div class="row">
 	<div class="col-md-12">
 		<table class="table">
 			<thead>
 				<tr>
-					<th>Name</th>
-					<th>Number of floors</th>
-					<th>Year of construction</th>
-					<th>City</th>
-					<th>ZipCode</th>
-					<th>Address</th>
-					<th>Image</th>
-					<th>Tenant list</th>
+					<th>@Html.DisplayNameFor(model => model[0].Name)</th>
+					<th>@Html.DisplayNameFor(model => model[0].NumberOfFloors)</th>
+					<th>@Html.DisplayNameFor(model => model[0].YearOfConstruction)</th>
+					<th>@Html.DisplayNameFor(model => model[0].City)</th>
+					<th>@Html.DisplayNameFor(model => model[0].ZipCode)</th>
+					<th>@Html.DisplayNameFor(model => model[0].Address)</th>
 				</tr>
 			</thead>
+			<tbody>
+				@foreach (var item in Model) {
+					<tr>
+						<td>@Html.DisplayFor(modelItem => item.Name)</td>
+						<td>@Html.DisplayFor(modelItem => item.NumberOfFloors)</td>
+						<td>@Html.DisplayFor(modelItem => item.YearOfConstruction)</td>
+						<td>@Html.DisplayFor(modelItem => item.City)</td>
+						<td>@Html.DisplayFor(modelItem => item.ZipCode)</td>
+						<td>@Html.DisplayFor(modelItem => item.Address)</td>
+					</tr>
+				}
+			</tbody>
 		</table>
 	</div>
 </div>

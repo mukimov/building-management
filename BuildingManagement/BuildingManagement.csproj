@@ -197,8 +197,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Buildings\About.cshtml" />
-    <Content Include="Views\Buildings\Contact.cshtml" />
     <Content Include="Views\Buildings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
