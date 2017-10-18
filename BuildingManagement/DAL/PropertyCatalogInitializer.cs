@@ -2,7 +2,7 @@
 using BuildingManagement.Models;
 
 namespace BuildingManagement.DAL {
-	public class PropertyCatalogInitializer : System.Data.Entity.DropCreateDatabaseAlways<PropertyCatalogContext> {
+	public class PropertyCatalogInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<PropertyCatalogContext> {
 		protected override void Seed(PropertyCatalogContext context) {
 			Enumerable.Range(0, 20).Select(x => new Building {
 				Name = Faker.NameFaker.Name(),
