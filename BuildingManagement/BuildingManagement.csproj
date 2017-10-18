@@ -161,7 +161,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Building.cs" />
-    <Compile Include="Models\BuildingImage.cs" />
     <Compile Include="Models\BuildingToTenant.cs" />
     <Compile Include="Models\Tenant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

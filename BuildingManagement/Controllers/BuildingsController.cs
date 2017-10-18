@@ -35,7 +35,6 @@ namespace BuildingManagement.Controllers {
 
 		// GET: Buildings/Create
 		public ActionResult Create() {
-			ViewBag.Id = new SelectList(_db.BuildingImages, "BuildingId", "BuildingId");
 			return View();
 		}
 
@@ -57,7 +56,6 @@ namespace BuildingManagement.Controllers {
 				return RedirectToAction("Index");
 			}
 
-			ViewBag.Id = new SelectList(_db.BuildingImages, "BuildingId", "BuildingId", building.Id);
 			return View(building);
 		}
 
@@ -70,7 +68,7 @@ namespace BuildingManagement.Controllers {
 			if (building == null) {
 				return HttpNotFound();
 			}
-			ViewBag.Id = new SelectList(_db.BuildingImages, "BuildingId", "BuildingId", building.Id);
+			ViewBag.Tenants = new SelectList(_db.Tenants, "Tenants", "Tenants", building.BuildingToTenants);
 			return View(building);
 		}
 
@@ -91,7 +89,6 @@ namespace BuildingManagement.Controllers {
 				_db.SaveChanges();
 				return RedirectToAction("Index");
 			}
-			ViewBag.Id = new SelectList(_db.BuildingImages, "BuildingId", "BuildingId", building.Id);
 			return View(building);
 		}
 
