@@ -30,14 +30,17 @@
 		<th>
 			@Html.DisplayNameFor(model => model.Address)
 		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.BuildingToTenants)
+		</th>
 		<th></th>
 	</tr>
 
 	@foreach (var item in Model) {
 		<tr>
 			<td>
-				@if (item.BuildingImage != null) {
-					<img src="data:image;base64,@Convert.ToBase64String(item.BuildingImage.Image)" class="building-container__image img-thumbnail" />
+				@if (!string.IsNullOrEmpty(item.Image)) {
+					<img src="@Path.Combine("/images/upload", $"{item.Image}")" class="building-container__image img-thumbnail" />
 				}
 				else {
 					<img src="~/images/no-thumb.png" class="building-container__image img-thumbnail" />
@@ -60,6 +63,13 @@
 			</td>
 			<td>
 				@Html.DisplayFor(modelItem => item.Address)
+			</td>
+			<td>
+				<ul class="list-unstyled">
+					@foreach (var tenant in item.BuildingToTenants) {
+						<li>@tenant.Tenant.Name</li>
+					}
+				</ul>
 			</td>
 			<td>
 				@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |

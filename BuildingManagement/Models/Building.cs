@@ -22,7 +22,9 @@ namespace BuildingManagement.Models {
 		public string ZipCode { get; set; }
 		[Required, MaxLength(30)]
 		public string Address { get; set; }
-		public virtual BuildingImage BuildingImage { get; set; }
+
+		public string Image { get; set; } = "no-thumb.png";
+		[DisplayName("Tenants")]
 		public virtual ICollection<BuildingToTenant> BuildingToTenants { get; set; }
 
 		[NotMapped]

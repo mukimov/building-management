@@ -6,7 +6,8 @@ namespace BuildingManagement.Models {
 		[Key]
 		[ForeignKey("Building")]
 		public int BuildingId { get; set; }
-		public byte[] Image { get; set; }
+		public string FileName { get; set; }
+		public string Extension { get; set; }
 		public virtual Building Building { get; set; }
 	}
 }
