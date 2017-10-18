@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<BuildingManagement.Models.Building>
 
 @{
-	ViewBag.Title = "Index";
+	ViewBag.Title = "Property Catalog";
 }
 
 <h2>Index</h2>
@@ -11,9 +11,7 @@
 </p>
 <table class="table">
 	<tr>
-		<th>
-			@Html.DisplayNameFor(model => model.BuildingImage.BuildingId)
-		</th>
+		<th></th>
 		<th>
 			@Html.DisplayNameFor(model => model.Name)
 		</th>
@@ -38,7 +36,12 @@
 	@foreach (var item in Model) {
 		<tr>
 			<td>
-				@Html.DisplayFor(modelItem => item.BuildingImage.BuildingId)
+				@if (item.BuildingImage != null) {
+					<img src="data:image;base64,@Convert.ToBase64String(item.BuildingImage.Image)" class="building-container__image img-thumbnail" />
+				}
+				else {
+					<img src="~/images/no-thumb.png" class="building-container__image img-thumbnail" />
+				}
 			</td>
 			<td>
 				@Html.DisplayFor(modelItem => item.Name)

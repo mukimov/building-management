@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Foolproof;
 
 namespace BuildingManagement.Models {
 	public class Building {
@@ -11,7 +13,8 @@ namespace BuildingManagement.Models {
 		[Required, Range(1, 200), DisplayName("Number of floors")]
 		public int NumberOfFloors { get; set; }
 		[DataType(DataType.Date)]
-		[Required, Range(typeof(DateTime), "1/1/1900", "1/1/2099"), DisplayName("Year of Construction")]
+		[Required, DisplayName("Year of Construction")]
+		[GreaterThan("StartDate", ErrorMessage = "Year of Construction must be greater than 1/1/1900.")]
 		public DateTime YearOfConstruction { get; set; }
 		[Required, MaxLength(30)]
 		public string City { get; set; }
@@ -21,5 +24,8 @@ namespace BuildingManagement.Models {
 		public string Address { get; set; }
 		public virtual BuildingImage BuildingImage { get; set; }
 		public virtual ICollection<BuildingToTenant> BuildingToTenants { get; set; }
+
+		[NotMapped]
+		public DateTime StartDate { get; } = new DateTime(1900, 1, 1);
 	}
 }
