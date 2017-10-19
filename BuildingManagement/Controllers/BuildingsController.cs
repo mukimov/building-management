@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -17,8 +17,8 @@ namespace BuildingManagement.Controllers {
 
 		// GET: Buildings
 		public ActionResult Index() {
-			var buildings = _db.Buildings.Include(b => b.BuildingToTenants);
-			return View(buildings.ToList());
+			List<Building> buildings = _db.Buildings.Include(b => b.BuildingToTenants).ToList();
+			return View(buildings);
 		}
 
 		// GET: Buildings/Details/5
@@ -65,21 +65,43 @@ namespace BuildingManagement.Controllers {
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
 			Building building = _db.Buildings.Find(id);
+
 			if (building == null) {
 				return HttpNotFound();
 			}
-			ViewBag.Tenants = new SelectList(_db.Tenants, "Tenants", "Tenants", building.BuildingToTenants);
+
+			building.SelectedTenantsList = _db.BuildingToTenants
+				.Where(b => b.BuildingId == building.Id)
+				.Select(b => b.TenantId).ToList();
+
+			ViewBag.TentantList = new MultiSelectList(_db.Tenants, "Id", "Name", building.SelectedTenantsList);
+
 			return View(building);
 		}
 
 		// POST: Buildings/Edit/5
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Edit([Bind(Include = "Id,Name,NumberOfFloors,YearOfConstruction,City,ZipCode,Address")] Building building) {
+		public ActionResult Edit([Bind(Include = "Id,Name,NumberOfFloors,YearOfConstruction,City,ZipCode,Address,SelectedTenantsList")] Building building) {
+			_db.Buildings.Attach(building);
+
+			DbEntityEntry<Building> item = _db.Entry(building);
+
+			item.Collection(i => i.BuildingToTenants).Load();
+
+			building.BuildingToTenants.Clear();
+
+			foreach (int selectedTenantId in building.SelectedTenantsList) {
+				building.BuildingToTenants.Add(new BuildingToTenant {
+					TenantId = selectedTenantId,
+					ExpirationDate = DateTime.Now
+				});
+			}
+
 			if (ModelState.IsValid) {
 				if (Request.Files.Count > 0) {
 					HttpPostedFileBase file = Request.Files[0];
-					if (file != null) {
+					if (file != null && file.ContentLength > 0) {
 						string path = Path.Combine(Server.MapPath(StoragePath), file.FileName);
 						file.SaveAs(path);
 						building.Image = file.FileName;
@@ -89,6 +111,9 @@ namespace BuildingManagement.Controllers {
 				_db.SaveChanges();
 				return RedirectToAction("Index");
 			}
+
+			ViewBag.TentantList = new MultiSelectList(_db.Tenants, "Id", "Name", building.SelectedTenantsList);
+
 			return View(building);
 		}
 
@@ -111,7 +136,12 @@ namespace BuildingManagement.Controllers {
 			Building building = _db.Buildings.Include(b => b.BuildingToTenants)
 				.FirstOrDefault(b => b.Id == id);
 
-			_db.Buildings.Remove(building ?? throw new InvalidOperationException());
+			if (building == null) {
+				return HttpNotFound();
+			}
+
+			_db.Buildings.Remove(building);
+
 			_db.SaveChanges();
 			return RedirectToAction("Index");
 		}

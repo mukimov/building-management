@@ -9,7 +9,6 @@ namespace BuildingManagement.Models {
 		[Key, Column(Order = 1)]
 		public int TenantId { get; set; }
 		[DataType(DataType.Date)]
-		[DisplayFormat(DataFormatString = "{DD.MM.YYYY}")]
 		public DateTime ExpirationDate { get; set; }
 		[ForeignKey("BuildingId")]
 		public virtual Building Building { get; set; }

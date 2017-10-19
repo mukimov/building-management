@@ -6,13 +6,11 @@
 <div>
 	<h4>Building</h4>
 	<hr />
+	<p>
+		@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+		@Html.ActionLink("Back to List", "Index")
+	</p>
 	<dl class="dl-horizontal">
-		<dt>
-			@Html.DisplayNameFor(model => model.BuildingImage.BuildingId)
-		</dt>
-		<dd>
-			@Html.DisplayFor(model => model.BuildingImage.BuildingId)
-		</dd>
 		<dt>
 			@Html.DisplayNameFor(model => model.Name)
 		</dt>
@@ -49,19 +47,22 @@
 		<dd>
 			@Html.DisplayFor(model => model.Address)
 		</dd>
-		<dt>
-			@Html.DisplayNameFor(model => model.BuildingToTenants)
-		</dt>
-		<dd>
-			<ul class="list-unstyled">
-				@foreach (var item in Model.BuildingToTenants) {
-					<li>@item.Tenant.Name</li>
-				}
-			</ul>
-		</dd>
 	</dl>
 </div>
-<p>
-	@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-	@Html.ActionLink("Back to List", "Index")
-</p>
+
+@Html.React("Tenants", new {
+	initialTenants = Model.BuildingToTenants.Select(b => new { b.Tenant.Name, Id = b.TenantId, b.ExpirationDate }),
+	updateUrl = Url.Action("PutBuildingToTenant", "BuildingToTenants", new { httproute = "DefaultApi", id = Model.Id }),
+	deleteUrl = Url.Action("DeleteBuildingToTenant", "BuildingToTenants", new { httproute = "DefaultApi", id = Model.Id }),
+	addUrl = Url.Action("PostBuildingToTenant", "BuildingToTenants", new { httproute = "DefaultApi" }),
+	getUrl = Url.Action("GetBuildingToTenant", "BuildingToTenants", new { httproute = "DefaultApi", id = Model.Id }),
+	buildingId = Model.Id,
+})
+
+@section scripts {
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.min.js"></script>
+	<script src="@Url.Content("~/Scripts/modal.jsx")"></script>
+	<script src="@Url.Content("~/Scripts/tenant-button.jsx")"></script>
+	<script src="@Url.Content("~/Scripts/tenants.jsx")"></script>
+	@Html.ReactInitJavaScript()
+}

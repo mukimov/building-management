@@ -27,3 +27,7 @@ textarea {
 	height: 64px;
 	width: 64px;
 }
+
+.modal--show {
+	display: block;
+}
