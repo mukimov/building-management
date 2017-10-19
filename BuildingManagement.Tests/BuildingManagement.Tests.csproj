@@ -100,12 +100,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
-    <Content Include="Client Scripts\mvcfoolproof.unobtrusive.js" />
-    <Content Include="Client Scripts\mvcfoolproof.unobtrusive.min.js" />
-    <Content Include="Client Scripts\MvcFoolproofJQueryValidation.js" />
-    <Content Include="Client Scripts\MvcFoolproofJQueryValidation.min.js" />
-    <Content Include="Client Scripts\MvcFoolproofValidation.js" />
-    <Content Include="Client Scripts\MvcFoolproofValidation.min.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

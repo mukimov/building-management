@@ -19,7 +19,7 @@ namespace BuildingManagement.Tests.Controllers
 			BuildingsController controller = new BuildingsController();
 
 			// Act
-			ViewResult result = controller.Index() as ViewResult;
+			ViewResult result = controller.Index("Name", false) as ViewResult;
 
 			// Assert
 			Assert.IsNotNull(result);
