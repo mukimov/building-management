@@ -204,6 +204,7 @@
     <Compile Include="Controllers\BuildingsController.cs" />
     <Compile Include="DAL\PropertyCatalogContext.cs" />
     <Compile Include="DAL\PropertyCatalogInitializer.cs" />
+    <Compile Include="Extensions\DynamicOrderBy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -241,13 +242,13 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modal.jsx" />
+    <Content Include="Scripts\tenants\tenant-modal-editor.jsx" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\tenant-button.jsx" />
-    <Content Include="Scripts\tenants.jsx" />
+    <Content Include="Scripts\tenants\tenant-button.jsx" />
+    <Content Include="Scripts\tenants\tenants.jsx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

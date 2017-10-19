@@ -1,25 +1,36 @@
 ﻿@model IEnumerable<BuildingManagement.Models.Building>
-
 @{
 	ViewBag.Title = "Property Catalog";
 }
-
 <h2>Index</h2>
-
 <p>
 	@Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
 	<tr>
 		<th></th>
-		<th>
-			@Html.DisplayNameFor(model => model.Name)
+		<th class="building-container__sort-column" data-js-sort-column="Name">
+			@if (ViewBag.SortColumn == "Name") {
+				if (ViewBag.Descending) {
+					<span class="glyphicon glyphicon-arrow-up"></span>
+				} else {
+					<span class="glyphicon glyphicon-arrow-down"></span>
+				}
+			}
+			@Html.ActionLink("Name", "Index", new { sortColumn = "Name", descending = !ViewBag.Descending })
 		</th>
 		<th>
 			@Html.DisplayNameFor(model => model.NumberOfFloors)
 		</th>
-		<th>
-			@Html.DisplayNameFor(model => model.YearOfConstruction)
+		<th class="building-container__sort-column" data-js-sort-column="YearOfConstruction">
+			@if (ViewBag.SortColumn == "YearOfConstruction") {
+				if (ViewBag.Descending) {
+					<span class="glyphicon glyphicon-arrow-up"></span>
+				} else {
+					<span class="glyphicon glyphicon-arrow-down"></span>
+				}
+			}
+			@Html.ActionLink("Year Of Construction", "Index", new { sortColumn = "YearOfConstruction", descending = !ViewBag.Descending })
 		</th>
 		<th>
 			@Html.DisplayNameFor(model => model.City)
@@ -35,14 +46,12 @@
 		</th>
 		<th></th>
 	</tr>
-
 	@foreach (var item in Model) {
 		<tr>
 			<td>
 				@if (!string.IsNullOrEmpty(item.Image)) {
 					<img src="@Path.Combine("/images/upload", $"{item.Image}")" class="building-container__image img-thumbnail" />
-				}
-				else {
+				} else {
 					<img src="~/images/no-thumb.png" class="building-container__image img-thumbnail" />
 				}
 			</td>
@@ -78,5 +87,4 @@
 			</td>
 		</tr>
 	}
-
 </table>

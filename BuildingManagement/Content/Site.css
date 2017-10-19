@@ -28,6 +28,10 @@ textarea {
 	width: 64px;
 }
 
+.building-container__sort-column {
+	cursor: pointer;
+}
+
 .modal--show {
 	display: block;
 }

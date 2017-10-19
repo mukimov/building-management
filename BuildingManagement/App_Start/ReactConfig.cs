@@ -13,9 +13,9 @@ namespace BuildingManagement {
 			// See http://reactjs.net/ for more information. Example:
 			ReactSiteConfiguration.Configuration
 				.AddScript("~/Scripts/moment.min.js")
-				.AddScript("~/Scripts/modal.jsx")
-				.AddScript("~/Scripts/tenant-button.jsx")
-				.AddScript("~/Scripts/tenants.jsx")
+				.AddScript("~/Scripts/tenants/tenant-modal-editor.jsx")
+				.AddScript("~/Scripts/tenants/tenant-button.jsx")
+				.AddScript("~/Scripts/tenants/tenants.jsx")
 				.SetJsonSerializerSettings(new JsonSerializerSettings {
 					ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
 					ContractResolver = new CamelCasePropertyNamesContractResolver(),

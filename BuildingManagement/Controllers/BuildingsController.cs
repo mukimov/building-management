@@ -9,15 +9,28 @@ using System.Web;
 using System.Web.Mvc;
 using BuildingManagement.DAL;
 using BuildingManagement.Models;
+using BuildingManagement.Extensions;
 
 namespace BuildingManagement.Controllers {
 	public class BuildingsController : Controller {
 		private readonly PropertyCatalogContext _db = new PropertyCatalogContext();
 		private const string StoragePath = "~/images/upload";
+		private const string NameColumn = "Name";
+		private const string SortColumnKey = "SortColumn";
+		private const string DescendingKey = "Descending";
 
 		// GET: Buildings
-		public ActionResult Index() {
-			List<Building> buildings = _db.Buildings.Include(b => b.BuildingToTenants).ToList();
+		public ActionResult Index(string sortColumn, bool? descending) {
+			if (!string.IsNullOrEmpty(sortColumn) && descending.HasValue) {
+				Session[SortColumnKey] = sortColumn;
+				Session[DescendingKey] = descending.Value;
+			}
+			ViewBag.SortColumn = Session[SortColumnKey] ?? NameColumn;
+			ViewBag.Descending = Session[DescendingKey] ?? false;
+			List<Building> buildings = _db.Buildings
+				.OrderBy((string) ViewBag.SortColumn, (bool) ViewBag.Descending)
+				.Include(b => b.BuildingToTenants).ToList();
+
 			return View(buildings);
 		}
 
