@@ -3,13 +3,13 @@ using System.Linq;
 using BuildingManagement.Models;
 
 namespace BuildingManagement.DAL {
-	public class PropertyCatalogInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<PropertyCatalogContext> {
+	public class PropertyCatalogInitializer : System.Data.Entity.DropCreateDatabaseAlways<PropertyCatalogContext> {
 		protected override void Seed(PropertyCatalogContext context) {
 			Enumerable.Range(0, 20).Select(x => new Building {
 				Name = Truncate(Faker.CompanyFaker.Name(), 30),
 				NumberOfFloors = Faker.NumberFaker.Number(1, 199),
 				City = Truncate(Faker.LocationFaker.City(), 30),
-				ZipCode = Faker.LocationFaker.ZipCode(),
+				ZipCode = $"0{Faker.LocationFaker.ZipCode()}",
 				Address = Truncate(Faker.LocationFaker.Street(), 30),
 				YearOfConstruction = Faker.DateTimeFaker.DateTimeBetweenYears(50)
 			}).ToList().ForEach(b => context.Buildings.Add(b));

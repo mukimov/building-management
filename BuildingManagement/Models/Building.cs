@@ -18,7 +18,7 @@ namespace BuildingManagement.Models {
 		public DateTime YearOfConstruction { get; set; }
 		[Required, MaxLength(30)]
 		public string City { get; set; }
-		[Required, RegularExpression("^\\d{5}$")]
+		[Required, RegularExpression("^\\d{6}$")]
 		public string ZipCode { get; set; }
 		[Required, MaxLength(30)]
 		public string Address { get; set; }
