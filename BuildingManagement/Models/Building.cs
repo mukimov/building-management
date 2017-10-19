@@ -26,7 +26,7 @@ namespace BuildingManagement.Models {
 		[DisplayName("Tenants")]
 		public virtual ICollection<BuildingToTenant> BuildingToTenants { get; set; }
 
-		[NotMapped]
+		[NotMapped, DisplayName("Tenants")]
 		public ICollection<int> SelectedTenantsList { get; set; }
 		[NotMapped]
 		public DateTime StartDate { get; } = new DateTime(1900, 1, 1);
