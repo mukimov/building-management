@@ -3,7 +3,7 @@ using System.Linq;
 using BuildingManagement.Models;
 
 namespace BuildingManagement.DAL {
-	public class PropertyCatalogInitializer : System.Data.Entity.DropCreateDatabaseAlways<PropertyCatalogContext> {
+	public class PropertyCatalogInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<PropertyCatalogContext> {
 		protected override void Seed(PropertyCatalogContext context) {
 			Enumerable.Range(0, 20).Select(x => new Building {
 				Name = Truncate(Faker.CompanyFaker.Name(), 30),
